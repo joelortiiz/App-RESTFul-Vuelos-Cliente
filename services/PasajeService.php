@@ -4,7 +4,7 @@ class PasajeService {
 
     //GET
     function request_curl() {
-        $urlmiservicio = "http://localhost/_servWeb/restfulApiVuelos/Pasajes.php";
+        $urlmiservicio = "http://localhost/_servWeb/restfulvuelos/PasajeService.php";
         $conexion = curl_init();
         //Url de la petición
         curl_setopt($conexion, CURLOPT_URL, $urlmiservicio);
@@ -26,7 +26,7 @@ class PasajeService {
 
     //GET con un pasaje
     function request_uno($id) {
-        $urlmiservicio = "http://localhost/_servWeb/restfulApiVuelos/Pasajes.php?id=" . $id;
+        $urlmiservicio = "http://localhost/_servWeb/restfulvuelos/PasajeService.php?id=" . $id;
         $conexion = curl_init();
         //Url de la petición
         curl_setopt($conexion, CURLOPT_URL, $urlmiservicio);
@@ -50,7 +50,7 @@ class PasajeService {
     //POST Van datos, se pone el Content-Length del envío
     function request_post($pasajerocod, $identificador, $numasiento, $clase, $pvp) {
         $envio = json_encode(array("pasajerocod" => $pasajerocod, "identificador" => $identificador, "numasiento" => $numasiento, "clase" => $clase, "pvp" => $pvp));
-        $urlmiservicio = "http://localhost/_servWeb/restfulvuelos/Pasajes.php";
+        $urlmiservicio = "http://localhost/_servWeb/restfulvuelos/PasajeService.php";
         $conexion = curl_init();
         curl_setopt($conexion, CURLOPT_URL, $urlmiservicio);
         //Cabecera, tipo de datos y longitud de envío
@@ -80,7 +80,7 @@ class PasajeService {
     //PUT  para modificar
     function request_put($id, $pasajerocod, $identificador, $numasiento, $clase, $pvp) {
         $envio = json_encode(array("pasajerocod" => $pasajerocod, "identificador" => $identificador, "numasiento" => $numasiento, "clase" => $clase, "pvp" => $pvp));
-        $urlmiservicio = "http://localhost/_servWeb/restfulvuelos/Pasajes.php?id=" . $id;
+        $urlmiservicio = "http://localhost/_servWeb/restfulvuelos/PasajeService.php?id=" . $id;
         $conexion = curl_init();
         curl_setopt($conexion, CURLOPT_URL, $urlmiservicio);
         //Cabecera, tipo de datos y longitud de envío
@@ -109,7 +109,7 @@ class PasajeService {
 
     //DELETE para borrar
     function request_delete($id) {
-        $urlmiservicio = "http://localhost/_servWeb/restfulvuelos/Pasajes.php?id=" . $id;
+        $urlmiservicio = "http://localhost/_servWeb/restfulvuelos/PasajeService.php?id=" . $id;
         $conexion = curl_init();
         curl_setopt($conexion, CURLOPT_URL, $urlmiservicio);
         //Cabecera, tipo de datos y longitud de envío

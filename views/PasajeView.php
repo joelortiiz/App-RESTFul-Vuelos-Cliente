@@ -5,58 +5,52 @@ class PasajeView {
     public function mostrarPasajes($pasajes, $selectPasajero, $selectIdentificador) {
         ?>
         <!-- INICIO HEADER -->
-        <header>
-            <!-- Navbar -->
-            <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-nav">
-                <div class="container">
-                    <img src="./assets/images/fondo.jpg" alt="Logo" draggable="false" height="30" />
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav ms-auto align-items-center">
-                            <li class="nav-item">
-                                <a class="nav-link mx-2" href="./index.php?controller=Vuelo&action=mostrar"><i class="fa-solid fa-plane pe-2"></i>Vuelos</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link mx-2" href="./index.php?controller=Pasaje&action=mostrar"><i class="fa-solid fa-ticket pe-2"></i>Pasajes</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-            <!-- Navbar -->
-        </header>
-        <!-- FIN HEADER -->
         <div class="container bg-white rounded p-5 mt-3">
-            <h1 class="text-center mt-3">Pasajes</h1>
-            <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Insertar Pasaje</a>
+            <h1 class="text-center mt-3">Todos los Pasajes</h1>
+            <!-- Navbar -->
+            <nav class="navbar d-flex justify-content-around  align-items-center  bg-primary">
+                <ul class="d-flex justify-content-around  align-items-center list-unstyled fs-2">
+                    <li class="d-flex justify-content-around  align-items-center  nav-item">
+                        <a class="nav-link m-4 text-warning" href="./index.php?controller=Vuelo&action=mostrar">Vuelos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link m-4 text-light" href="./index.php?controller=Pasaje&action=mostrar">Pasajes</a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="col-md-12 text-center mt-4">
+            <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Añadir un nuevo Pasaje</a>
+                
+            </div>
             <?php
             if (isset($_GET["check"])) {
                 if ($_GET["check"] == 'true') {
                     ?>
-                    <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
-                        <strong>Pasaje insertado correctamente</strong>
+                    <div class="alert text-center alert-success alert-dismissible fade show mt-3" role="alert">
+                        <strong>El pasaje se ha añadido correctamente</strong>
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                     <?php
                 } else {
                     ?>
                     <div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
-                        <strong>Error al insertar el pasaje. Por favor, inténtelo de nuevo más tarde.</strong>
+                        <strong>Error al añadir el nuevo pasaje, revisa los datos introducidos.</strong>
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                     <?php
                 }
             }
             ?>
-            <!-- INICIO TABLA -->
-            <table class="table mt-5">
+            <!-- TABLA INICIO -->
+            <table class="table mt-4 text-center align-middle">
                 <thead>
                     <tr>
                         <th>Id Pasaje</th>
-                        <th>Código Pasajero</th>
+                        <th>Código de Pasajero</th>
                         <th>Identificador</th>
-                        <th>Numero de asiento</th>
+                        <th>Número de asiento</th>
                         <th>Clase</th>
-                        <th>Pvp</th>
+                        <th>PVP</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
@@ -64,7 +58,7 @@ class PasajeView {
                     <?php
                     foreach ($pasajes as $pasaje) {
                         ?>
-                        <tr>
+                    <tr >
                             <td><?php echo $pasaje->getIdpasaje(); ?></td>
                             <td><?php echo $pasaje->getPasajerocod(); ?></td>
                             <td><?php echo $pasaje->getIdentificador(); ?></td>

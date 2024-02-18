@@ -4,30 +4,23 @@ class VueloView {
 
     public function mostrarVuelos($vuelosAll) {
         ?>
-        <!-- INICIO HEADER -->
-        <header>
-            <!-- Navbar -->
-            <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-nav">
-                <div class="container">
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav ms-auto align-items-center">
-                            <li class="nav-item">
-                                <a class="nav-link mx-2" href="./index.php?controller=Vuelo&action=mostrar"><i class="fa-solid fa-plane pe-2"></i>Vuelos</a>
+      
+        <div class="container bg-white rounded p-5 mt-3">
+            <h1 class="text-center mt-3">Todos los Vuelos</h1>
+               <!-- Navbar -->
+            <nav class="navbar d-flex justify-content-around  align-items-center  bg-primary">
+                <ul class="d-flex justify-content-around  align-items-center list-unstyled fs-2">
+                     <li class="d-flex justify-content-around  align-items-center  nav-item">
+                                <a class="nav-link m-4 text-light" href="./index.php?controller=Vuelo&action=mostrar">Vuelos</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link mx-2" href="./index.php?controller=Pasaje&action=mostrar"><i class="fa-solid fa-ticket pe-2"></i>Pasajes</a>
+                                <a class="nav-link m-4 text-warning" href="./index.php?controller=Pasaje&action=mostrar">Pasajes</a>
                             </li>
-                        </ul>
-                    </div>
-                </div>
+                </ul>
             </nav>
             <!-- Navbar -->
-        </header>
-        <!-- FIN HEADER -->
-        <div class="container bg-white rounded p-5 mt-3">
-            <h1 class="text-center mt-3">Vuelos</h1>
             <!-- INICIO TABLA -->
-            <table class="table mt-5">
+            <table class="table mt-4">
                 <thead>
                     <tr class="text-center">
                         <th>Identificador</th>
@@ -40,13 +33,13 @@ class VueloView {
                         <th>Tipo de Vuelo</th>
                         <th>Número pasajeros</th>
                     </tr>
-                    
+
                 </thead>
                 <tbody>
                     <?php
                     foreach ($vuelosAll as $vuelo) {
                         ?>
-                    <tr class="text-center">
+                        <tr class="text-center">
                             <td><?php echo $vuelo->getIdentificador(); ?></td>
                             <td><?php echo $vuelo->getAeropuertoorigen(); ?></td>
                             <td><?php echo $vuelo->getNombreorigen(); ?></td>
@@ -55,10 +48,14 @@ class VueloView {
                             <td><?php echo $vuelo->getNombredestino(); ?></td>
                             <td><?php echo $vuelo->getPaisdestino(); ?></td>
                             <td><?php echo $vuelo->getTipovuelo(); ?></td>
-                            <td><?php echo $vuelo->getNumPasajeros(); ?></td>
-
-
-
+                            <td><?php
+                                $pasajeros = $vuelo->getNumPasajeros();
+                                if ($pasajeros <= 0) {
+                                    echo 'Ninguno';
+                                } else {
+                                    echo $pasajeros;
+                                };
+                                ?></td>
                         </tr>
                         <?php
                     }

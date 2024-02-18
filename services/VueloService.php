@@ -26,7 +26,7 @@ class VueloService {
 
     //GET con un vuelo
     function request_uno($id) {
-        $urlmiservicio = "http://localhost/_servWeb/restfulvuelos/Vuelos.php?id=" . $id;
+        $urlmiservicio = "http://localhost/_servWeb/restfulvuelos/VuelosService.php?id=" . $id;
         $conexion = curl_init();
         //Url de la petición
         curl_setopt($conexion, CURLOPT_URL, $urlmiservicio);
