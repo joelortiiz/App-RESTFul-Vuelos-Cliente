@@ -66,7 +66,11 @@ class PasajeView {
                             <td><?php echo $pasaje->getClase(); ?></td>
                             <td><?php echo $pasaje->getPvp(); ?>€</td>
                             <td>
-                                <a href="./index.php?controller=Pasaje&action=mostrarUnPasaje&id=<?php echo $pasaje->getIdpasaje(); ?>"><i class="fa-solid fa-eye btn btn-primary p-2 text-white rounded"></i></a>
+                                <form method="GET" action="./index.php?controller=Pasaje&action=mostrarDetallesPasaje&id=<?php echo $pasaje->getIdpasaje(); ?>">
+                                    <button class="btn-primary bg-primary text-light" type="submit" >
+                                        Ver detalles
+                                    </button>
+                                </form>
                             </td>
                         </tr>
                         <?php
@@ -150,7 +154,7 @@ class PasajeView {
         // Fin del contenedor
     }
 
-    public function mostrarUnPasaje($pasajeOne) {
+    public function mostrarDetallesPasaje($pasajeOne) {
         ?>
         <!-- INICIO HEADER -->
          <h1 class="text-center mt-3">Vista de los Pasajes</h1>
@@ -215,7 +219,7 @@ class PasajeView {
             <div class="d-flex justify-content-center">
                 <a href="./index.php?controller=Pasaje&action=mostrar"><i class="fa-solid fa-arrow-left btn btn-secondary p-2 text-white rounded fs-3 me-2"></i></a>
                 <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fa-solid fa-trash btn btn-danger p-2 text-white rounded me-2 fs-3"></i></a>
-                <a href="./index.php?controller=Pasaje&action=mostrarModificar&id=<?php echo $_GET['id'] ?>"><i class="fa-solid fa-pencil btn btn-success p-2 text-white rounded fs-3"></i></a>                
+                <a href="./index.php?controller=Pasaje&action=mostrarActualizarPasaje&id=<?php echo $_GET['id'] ?>"><i class="fa-solid fa-pencil btn btn-success p-2 text-white rounded fs-3"></i></a>                
             </div>
 
             <!-- INICIO MODAL -->
@@ -230,7 +234,7 @@ class PasajeView {
                             <p>¿Estás seguro de que quieres eliminar el siguiente pasaje?<br></p>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="button" data-bs-dismiss="modal" class="btn btn-secondary" >Cancelar</button>
                             <a href="./index.php?controller=Pasaje&action=borrarPasaje&id=<?php echo $pasajeOne->getIdpasaje(); ?>" class="btn btn-danger">Eliminar</a>
                         </div>
                     </div>
@@ -242,10 +246,10 @@ class PasajeView {
         // Fin del contenedor
     }
 
-    public function mostrarModificar($selectPasajero, $selectIdentificador) {
+    public function mostrarActualizarPasaje($selectPasajero, $selectIdentificador) {
         ?>
       <h1 class="text-center mt-3">Vista de los Pasajes</h1>
-            <!-- Navbar -->
+      
             <nav class="navbar d-flex justify-content-around  align-items-center  bg-primary">
                 <ul class="d-flex justify-content-around  align-items-center list-unstyled fs-2">
                     <li class="d-flex justify-content-around  align-items-center  nav-item">
@@ -256,7 +260,7 @@ class PasajeView {
                     </li>
                 </ul>
             </nav>
-        <!-- FIN HEADER -->
+      
         <div class="container bg-white rounded p-5 mt-3">
             <h1 class="text-center mt-3">Modificar pasaje con Id <?php echo $_GET['id'] ?></h1>
             <form class="row g-3 mt-5" action="./index.php?controller=Pasaje&action=modificarPasaje&id=<?php echo $_GET['id'] ?>" method="POST">
@@ -314,7 +318,7 @@ class PasajeView {
                     </div>
                 </div>
                 <div class="modal-footer col-12 d-flex justify-content-center">
-                    <a href="./index.php?controller=Pasaje&action=mostrarUnPasaje&id=<?php echo $_GET['id'] ?>" class="btn btn-secondary mt-3 me-3">Volver</a>
+                    <a href="./index.php?controller=Pasaje&action=mostrarDetallesPasaje&id=<?php echo $_GET['id'] ?>" class="btn btn-secondary mt-3 me-3">Volver</a>
                     <button type="submit" class="btn btn-success mt-3">Modificar</button>                    
                 </div>
             </form>

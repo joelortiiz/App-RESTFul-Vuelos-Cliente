@@ -6,6 +6,7 @@ class PasajeController {
     private $view;
 
     public function __construct() {
+        
         $this->service = new PasajeService();
         $this->view = new PasajeView();
     }
@@ -36,7 +37,7 @@ class PasajeController {
         $this->view->mostrarPasajes($pasajes, $selectPasajero, $selectIdentificador);
     }
 
-    public function mostrarUnPasaje() {
+    public function mostrarDetallesPasaje() {
         $id = $_GET['id'];
 
         $objeto_res = $this->service->request_uno($id);
@@ -52,7 +53,7 @@ class PasajeController {
         );
 
         // Pasar el objeto Pasaje a la vista
-        $this->view->mostrarUnPasaje($pasajeOne);
+        $this->view->mostrarDetallesPasaje($pasajeOne);
     }
 
     public function borrarPasaje() {
@@ -66,7 +67,7 @@ class PasajeController {
     public function insertarPasaje() {
 
         $pasajerocod = $_POST['pasajero'];
-        $identificador = $_POST['identificador'];
+        $identificador = $_POST['codvuelo'];
         $numasiento = $_POST['numAsiento'];
         $clase = $_POST['clase'];
         $pvp = $_POST['pvp'];
@@ -80,7 +81,7 @@ class PasajeController {
         }
     }
 
-    public function mostrarModificar() {
+    public function mostrarActualizarPasaje() {
 
         $pasajesAll = json_decode($this->service->request_curl(), true);
 
@@ -94,7 +95,7 @@ class PasajeController {
             $selectIdentificador[] = new Pasaje($pasaje['identificador'], $pasaje['identificador'], $pasaje['identificador'], $pasaje['identificador'], $pasaje['identificador'], $pasaje['identificador']);
         }
 
-        $this->view->mostrarModificar($selectPasajero, $selectIdentificador);
+        $this->view->mostrarActualizarPasaje($selectPasajero, $selectIdentificador);
     }
 
     public function modificarPasaje() {
@@ -109,7 +110,7 @@ class PasajeController {
         $resultado = $this->service->request_put($id, $pasajerocod, $identificador, $numasiento, $clase, $pvp);
 
         // Construir la URL base
-        $baseURL = "./index.php?controller=Pasaje&action=mostrarUnPasaje&id=" . $_GET['id'];
+        $baseURL = "./index.php?controller=Pasaje&action=mostrarDetallesPasaje&id=" . $_GET['id'];
 
         // Verificar el resultado
         if ($resultado === true) {
