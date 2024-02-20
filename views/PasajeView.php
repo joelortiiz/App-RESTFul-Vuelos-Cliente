@@ -6,7 +6,7 @@ class PasajeView {
         ?>
         <!-- INICIO HEADER -->
         <div class="container bg-white rounded p-5 mt-3">
-            <h1 class="text-center mt-3">Todos los Pasajes</h1>
+            <h1 class="text-center mt-3">Vista de los Pasajes</h1>
             <!-- Navbar -->
             <nav class="navbar d-flex justify-content-around  align-items-center  bg-primary">
                 <ul class="d-flex justify-content-around  align-items-center list-unstyled fs-2">
@@ -153,7 +153,7 @@ class PasajeView {
     public function mostrarUnPasaje($pasajeOne) {
         ?>
         <!-- INICIO HEADER -->
-         <h1 class="text-center mt-3">Todos los Pasajes</h1>
+         <h1 class="text-center mt-3">Vista de los Pasajes</h1>
             <!-- Navbar -->
             <nav class="navbar d-flex justify-content-around  align-items-center  bg-primary">
                 <ul class="d-flex justify-content-around  align-items-center list-unstyled fs-2">
@@ -166,7 +166,7 @@ class PasajeView {
                 </ul>
             </nav>
         <div class="container bg-white rounded p-5 mt-3">
-            <h1 class="text-center mt-3">Pasaje con Id <?php echo $pasajeOne->getIdpasaje(); ?></h1>
+            <h1 class="text-center mt-3">Detalles del pasaje con Id <?php echo $pasajeOne->getIdpasaje(); ?></h1>
             <?php
             if (isset($_GET["check"])) {
                 if ($_GET["check"] == 'true') {
@@ -244,26 +244,18 @@ class PasajeView {
 
     public function mostrarModificar($selectPasajero, $selectIdentificador) {
         ?>
-        <!-- INICIO HEADER -->
-     <header>
+      <h1 class="text-center mt-3">Vista de los Pasajes</h1>
             <!-- Navbar -->
-            <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-nav">
-                <div class="container">
-                    <img src="./assets/images/fondo.jpg" alt="Logo" draggable="false" height="30" />
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav ms-auto align-items-center">
-                            <li class="nav-item">
-                                <a class="nav-link mx-2" href="./index.php?controller=Vuelo&action=mostrar"><i class="fa-solid fa-plane pe-2"></i>Vuelos</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link mx-2" href="./index.php?controller=Pasaje&action=mostrar"><i class="fa-solid fa-ticket pe-2"></i>Pasajes</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+            <nav class="navbar d-flex justify-content-around  align-items-center  bg-primary">
+                <ul class="d-flex justify-content-around  align-items-center list-unstyled fs-2">
+                    <li class="d-flex justify-content-around  align-items-center  nav-item">
+                        <a class="nav-link m-4 text-warning" href="./index.php?controller=Vuelo&action=mostrar">Vuelos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link m-4 text-light" href="./index.php?controller=Pasaje&action=mostrar">Pasajes</a>
+                    </li>
+                </ul>
             </nav>
-            <!-- Navbar -->
-        </header>
         <!-- FIN HEADER -->
         <div class="container bg-white rounded p-5 mt-3">
             <h1 class="text-center mt-3">Modificar pasaje con Id <?php echo $_GET['id'] ?></h1>
@@ -271,6 +263,8 @@ class PasajeView {
                 <div class="col-md-5">
                     <label class="form-label">Selecciona Pasajero:</label><br>
                     <select name="pasajero">
+                        <option value="" disabled selected>Ninguno</option>
+
                         <?php
                         foreach ($selectPasajero as $pasaje) {
                             ?>
@@ -280,10 +274,11 @@ class PasajeView {
                         ?>
                     </select>
                 </div>
-                <div class="col-md-2"></div>
                 <div class="col-md-5">
                     <label class="form-label">Selecciona Identificador:</label><br>
-                    <select name="identificador">
+                    <select name="codvuelo">
+                    <option value="" disabled selected>Ninguno</option>
+
                         <?php
                         foreach ($selectIdentificador as $pasaje) {
                             ?>
@@ -293,14 +288,13 @@ class PasajeView {
                         ?>
                     </select>
                 </div>
-                <div class="col-md-5">
+                <div class="col-md-6">
                     <label class="form-label">Número de Asiento</label>
-                    <input type="number" class="form-control" id="numAsiento" name="numAsiento" required>
+                    <input type="number" class="form-control" id="numAsiento" name="numAsiento" >
                 </div>
-                <div class="col-md-2"></div>
-                <div class="col-md-5">
+                <div class="col-md-6">
                     <label class="form-label">PVP</label>
-                    <input type="number" class="form-control" id="pvp" name="pvp" required>
+                    <input type="number" class="form-control" id="pvp" name="pvp" >
                 </div>
                 <div class="col-md-12">
                     <label class="form-label">Marca la clase:</label><br>
