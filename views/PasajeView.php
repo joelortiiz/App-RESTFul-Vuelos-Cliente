@@ -19,8 +19,8 @@ class PasajeView {
                 </ul>
             </nav>
             <div class="col-md-12 text-center mt-4">
-            <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Añadir un nuevo Pasaje</a>
-                
+                <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Añadir un nuevo Pasaje</a>
+
             </div>
             <?php
             if (isset($_GET["check"])) {
@@ -44,13 +44,14 @@ class PasajeView {
             <!-- TABLA INICIO -->
             <table class="table mt-4 text-center verticalalign-middle">
                 <thead>
-                    <tr>
+                    <tr class="text-center">
                         <th>Id Pasaje</th>
                         <th>Código de Pasajero</th>
                         <th>Identificador</th>
                         <th>Número de asiento</th>
-                        <th>Clase</th>
                         <th>PVP</th>
+
+                        <th>Clase</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
@@ -58,7 +59,7 @@ class PasajeView {
                     <?php
                     foreach ($pasajes as $pasaje) {
                         ?>
-                    <tr >
+                    <tr class="text-center">
                             <td><?php echo $pasaje->getIdpasaje(); ?></td>
                             <td><?php echo $pasaje->getPasajerocod(); ?></td>
                             <td><?php echo $pasaje->getIdentificador(); ?></td>
@@ -66,11 +67,14 @@ class PasajeView {
                             <td><?php echo $pasaje->getClase(); ?></td>
                             <td><?php echo $pasaje->getPvp(); ?>€</td>
                             <td>
-                                <form method="GET" action="./index.php?controller=Pasaje&action=mostrarDetallesPasaje&id=<?php echo $pasaje->getIdpasaje(); ?>">
-                                    <button class="btn-primary bg-primary text-light" type="submit" >
-                                        Ver detalles
-                                    </button>
+                                
+                                 <a href="./index.php?controller=Pasaje&action=mostrarDetallesPasaje&id=<?php echo $pasaje->getIdpasaje(); ?>" class="btn btn-danger">Ver detalles</a>
+                                 <!--  
+                                <form class="row g-3" action="./index.php?controller=Pasaje&action=mostrarDetallesPasaje&id=<?php echo $pasaje->getIdpasaje(); ?>" method="GET">
+                                    <button class="btn btn-success text-light" type="submit">Ver detalles</button>
                                 </form>
+                                   -->
+
                             </td>
                         </tr>
                         <?php
@@ -157,20 +161,25 @@ class PasajeView {
     public function mostrarDetallesPasaje($pasajeOne) {
         ?>
         <!-- INICIO HEADER -->
-         <h1 class="text-center mt-3">Vista de los Pasajes</h1>
-            <!-- Navbar -->
-            <nav class="navbar d-flex justify-content-around  align-items-center  bg-primary">
-                <ul class="d-flex justify-content-around  align-items-center list-unstyled fs-2">
-                    <li class="d-flex justify-content-around  align-items-center  nav-item">
-                        <a class="nav-link m-4 text-warning" href="./index.php?controller=Vuelo&action=mostrar">Vuelos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link m-4 text-light" href="./index.php?controller=Pasaje&action=mostrar">Pasajes</a>
-                    </li>
-                </ul>
-            </nav>
+        <h1 class="text-center mt-3">Vista de los Pasajes</h1>
+        <!-- Navbar -->
+        <nav class="navbar d-flex justify-content-around  align-items-center  bg-primary">
+            <ul class="d-flex justify-content-around  align-items-center list-unstyled fs-2">
+                <li class="d-flex justify-content-around  align-items-center  nav-item">
+                    <a class="nav-link m-4 text-warning" href="./index.php?controller=Vuelo&action=mostrar">Vuelos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link m-4 text-light" href="./index.php?controller=Pasaje&action=mostrar">Pasajes</a>
+                </li>
+            </ul>
+        </nav>
         <div class="container bg-white rounded p-5 mt-3">
-            <h1 class="text-center mt-3">Detalles del pasaje con Id <?php echo $pasajeOne->getIdpasaje(); ?></h1>
+            <div class="d-flex flex-column text-center">
+                            <h1 class="text-center mt-3">Detalles del pasaje</h1>
+                            <p class="mt-3"> Id pasaje: 
+                                 <?php echo $pasajeOne->getIdpasaje(); ?>
+                            </p>
+            </div>
             <?php
             if (isset($_GET["check"])) {
                 if ($_GET["check"] == 'true') {
@@ -195,14 +204,14 @@ class PasajeView {
             }
             ?>
             <!-- INICIO TABLA -->
-            <table class="table mt-5">
+            <table class="table mt-5 text-center">
                 <thead>
                     <tr>
                         <th>Código Pasajero</th>
                         <th>Identificador</th>
-                        <th>Numero de asiento</th>
-                        <th>Clase</th>
+                        <th>Numero de asiento</th>      
                         <th>Pvp</th>
+                        <th>Clase</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -210,8 +219,8 @@ class PasajeView {
                         <td><?php echo $pasajeOne->getPasajerocod(); ?></td>
                         <td><?php echo $pasajeOne->getIdentificador(); ?></td>
                         <td><?php echo $pasajeOne->getNumasiento(); ?></td>
-                        <td><?php echo $pasajeOne->getClase(); ?></td>
                         <td><?php echo $pasajeOne->getPvp(); ?>€</td>
+                        <td><?php echo $pasajeOne->getClase(); ?></td>
                     </tr>
                 </tbody>
             </table>
@@ -248,19 +257,19 @@ class PasajeView {
 
     public function mostrarActualizarPasaje($selectPasajero, $selectIdentificador) {
         ?>
-      <h1 class="text-center mt-3">Vista de los Pasajes</h1>
-      
-            <nav class="navbar d-flex justify-content-around  align-items-center  bg-primary">
-                <ul class="d-flex justify-content-around  align-items-center list-unstyled fs-2">
-                    <li class="d-flex justify-content-around  align-items-center  nav-item">
-                        <a class="nav-link m-4 text-warning" href="./index.php?controller=Vuelo&action=mostrar">Vuelos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link m-4 text-light" href="./index.php?controller=Pasaje&action=mostrar">Pasajes</a>
-                    </li>
-                </ul>
-            </nav>
-      
+        <h1 class="text-center mt-3">Vista de los Pasajes</h1>
+
+        <nav class="navbar d-flex justify-content-around  align-items-center  bg-primary">
+            <ul class="d-flex justify-content-around  align-items-center list-unstyled fs-2">
+                <li class="d-flex justify-content-around  align-items-center  nav-item">
+                    <a class="nav-link m-4 text-warning" href="./index.php?controller=Vuelo&action=mostrar">Vuelos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link m-4 text-light" href="./index.php?controller=Pasaje&action=mostrar">Pasajes</a>
+                </li>
+            </ul>
+        </nav>
+
         <div class="container bg-white rounded p-5 mt-3">
             <h1 class="text-center mt-3">Modificar pasaje con Id <?php echo $_GET['id'] ?></h1>
             <form class="row g-3 mt-5" action="./index.php?controller=Pasaje&action=modificarPasaje&id=<?php echo $_GET['id'] ?>" method="POST">
@@ -281,7 +290,7 @@ class PasajeView {
                 <div class="col-md-5">
                     <label class="form-label">Selecciona Identificador:</label><br>
                     <select name="codvuelo">
-                    <option value="" disabled selected>Ninguno</option>
+                        <option value="" disabled selected>Ninguno</option>
 
                         <?php
                         foreach ($selectIdentificador as $pasaje) {
@@ -324,6 +333,5 @@ class PasajeView {
             </form>
         </div>
         <?php
-        // Fin del contenedor
     }
 }

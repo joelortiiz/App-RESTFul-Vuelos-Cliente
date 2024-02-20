@@ -16,7 +16,6 @@ table {
     border-collapse: collapse;
     font-family: Verdana, Arial, Helvetica, sans-serif;
     font-size: 11px;
-     border-spacing: 15px;
 }
 td {
     border: solid blue 1pt;
