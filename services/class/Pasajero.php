@@ -2,22 +2,22 @@
 
 class Pasajero {
 
-    private $pasajerocod;
+    private $codpasajero;
     private $nombre;
     private $tlf;
     private $direccion;
     private $pais;
 
-    public function __construct($pasajerocod, $nombre, $tlf, $direccion, $pais) {
-        $this->pasajerocod = $pasajerocod;
+    public function __construct($codpasajero, $nombre, $tlf, $direccion, $pais) {
+        $this->$codpasajero = $codpasajero;
         $this->nombre = $nombre;
         $this->tlf = $tlf;
         $this->direccion = $direccion;
         $this->pais = $pais;
     }
 
-    public function getPasajerocod() {
-        return $this->pasajerocod;
+    public function getCodpasajero() {
+        return $this->codpasajero;
     }
 
     public function getNombre() {
@@ -36,8 +36,8 @@ class Pasajero {
         return $this->pais;
     }
 
-    public function setPasajerocod($pasajerocod): void {
-        $this->pasajerocod = $pasajerocod;
+    public function setCodpasajero($codpasajero): void {
+        $this->codpasajero = $codpasajero;
     }
 
     public function setNombre($nombre): void {

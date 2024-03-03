@@ -48,8 +48,8 @@ class PasajeService {
     }
 
     //POST Van datos, se pone el Content-Length del envío
-    function request_post($pasajerocod, $identificador, $numasiento, $clase, $pvp) {
-        $envio = json_encode(array("pasajerocod" => $pasajerocod, "identificador" => $identificador, "numasiento" => $numasiento, "clase" => $clase, "pvp" => $pvp));
+    function request_post($codpasajero, $identificador, $numasiento, $clase, $pvp) {
+        $envio = json_encode(array("codpasajero" => $codpasajero, "identificador" => $identificador, "numasiento" => $numasiento, "clase" => $clase, "pvp" => $pvp));
         $urlmiservicio = "http://localhost/_servWeb/restfulvuelos/PasajeService.php";
         $conexion = curl_init();
         curl_setopt($conexion, CURLOPT_URL, $urlmiservicio);
@@ -78,8 +78,8 @@ class PasajeService {
     }
 
     //PUT  para modificar
-    function request_put($id, $pasajerocod, $identificador, $numasiento, $clase, $pvp) {
-        $envio = json_encode(array("pasajerocod" => $pasajerocod, "identificador" => $identificador, "numasiento" => $numasiento, "clase" => $clase, "pvp" => $pvp));
+    function request_put($id, $codpasajero, $identificador, $numasiento, $clase, $pvp) {
+        $envio = json_encode(array("codpasajero" => $codpasajero, "identificador" => $identificador, "numasiento" => $numasiento, "clase" => $clase, "pvp" => $pvp));
         $urlmiservicio = "http://localhost/_servWeb/restfulvuelos/PasajeService.php?id=" . $id;
         $conexion = curl_init();
         curl_setopt($conexion, CURLOPT_URL, $urlmiservicio);

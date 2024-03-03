@@ -40,20 +40,20 @@ class PasajeController {
     public function mostrarDetallesPasaje() {
         $id = $_GET['id'];
 
-        $objeto_res = $this->service->request_uno($id);
+        $pasajeObj = $this->service->request_uno($id);
 
         // Crear un nuevo objeto Pasaje con los valores adecuados
         $pasajeOne = new Pasaje(
-                $objeto_res->idpasaje,
-                $objeto_res->pasajerocod,
-                $objeto_res->identificador,
-                $objeto_res->numasiento,
-                $objeto_res->clase,
-                $objeto_res->pvp
+                $pasajeObj->idpasaje,
+                $pasajeObj->pasajerocod,
+                $pasajeObj->identificador,
+                $pasajeObj->numasiento,
+                $pasajeObj->clase,
+                $pasajeObj->pvp
         );
 
         // Pasar el objeto Pasaje a la vista
-        $this->view->mostrarDetallesPasaje($pasajeOne);
+        $this->view->mostrarDetallePasaje($pasajeOne);
     }
 
     public function borrarPasaje() {
@@ -63,28 +63,11 @@ class PasajeController {
 
         header('Location: ./index.php?controller=Pasaje&action=mostrar');
     }
-
-    public function insertarPasaje() {
-
-        $pasajerocod = $_POST['pasajero'];
-        $identificador = $_POST['codvuelo'];
-        $numasiento = $_POST['numAsiento'];
-        $clase = $_POST['clase'];
-        $pvp = $_POST['pvp'];
-
-        $res = $this->service->request_post($pasajerocod, $identificador, $numasiento, $clase, $pvp);
-
-        if ($res == true) {
-            header('Location: ./index.php?controller=Pasaje&action=mostrar&check=true');
-        } else {
-            header('Location: ./index.php?controller=Pasaje&action=mostrar&check=false');
-        }
-    }
-
-    public function mostrarActualizarPasaje() {
+ public function mostrarInsertar() {
 
         $pasajesAll = json_decode($this->service->request_curl(), true);
 
+        // Obtener datos para los select
         $selectPasajero = [];
         foreach ($pasajesAll["registros2"] as $pasaje) {
             $selectPasajero[] = new Pasaje($pasaje['nombre'], $pasaje['pasajerocod'], $pasaje['nombre'], $pasaje['nombre'], $pasaje['nombre'], $pasaje['nombre']);
@@ -92,33 +75,79 @@ class PasajeController {
 
         $selectIdentificador = [];
         foreach ($pasajesAll["registros3"] as $pasaje) {
-            $selectIdentificador[] = new Pasaje($pasaje['identificador'], $pasaje['identificador'], $pasaje['identificador'], $pasaje['identificador'], $pasaje['identificador'], $pasaje['identificador']);
+            $selectIdentificador[] = new Pasaje($pasaje['identificador'], $pasaje['aeropuertoorigen'], $pasaje['aeropuertodestino'], $pasaje['identificador'], $pasaje['identificador'], $pasaje['identificador']);
         }
 
-        $this->view->mostrarActualizarPasaje($selectPasajero, $selectIdentificador);
+        // Pasar datos a la vista
+        $this->view->mostrarNuevoPasaje($selectPasajero, $selectIdentificador);
     }
+    public function insertarPasaje() {
 
-    public function modificarPasaje() {
-        $id = $_GET['id'];
         $pasajerocod = $_POST['pasajero'];
         $identificador = $_POST['identificador'];
         $numasiento = $_POST['numAsiento'];
         $clase = $_POST['clase'];
         $pvp = $_POST['pvp'];
 
-        // Llamada a la función request_put para actualizar un pasaje
-        $resultado = $this->service->request_put($id, $pasajerocod, $identificador, $numasiento, $clase, $pvp);
+        $result = $this->service->request_post($pasajerocod, $identificador, $numasiento, $clase, $pvp);
 
         // Construir la URL base
-        $baseURL = "./index.php?controller=Pasaje&action=mostrarDetallesPasaje&id=" . $_GET['id'];
+        $baseURL = "./index.php?controller=Pasaje&action=mostrar";
 
-        // Verificar el resultado
-        if ($resultado === true) {
-            // Actualización exitosa
-            header('Location: ' . $baseURL . '&check=true');
-        } elseif (is_string($resultado)) {
+        if ($result === true) {
+            header('Location: index.php?controller=Pasaje&action=mostrar&id=' . $_GET['id']. '&check=true');
+        } elseif (is_string($result)) {
             // Si el resultado es una cadena, significa que hubo un error personalizado
-            header('Location: ' . $baseURL . '&check=false&error=' . urlencode($resultado));
+            header('Location: "./index.php?controller=Pasaje&action=mostrar&id=' . $_GET['id']. '&check=false&error=' . urlencode($result));
+        }
+    }
+
+    public function mostrarActualizarPasaje() {
+        
+        // Obtenemos los datos del formulario
+        $idpasaje = $_POST['idpasaje'];
+        $pasajerocod = $_POST['pasajerocod'];
+        $identificador = $_POST['identi'];
+        $numasiento = $_POST['Nasiento'];
+        $clase = $_POST['clase'];
+        $pvp = $_POST['pvp'];
+
+
+           $pasajes = json_decode($this->service->request_curl(), true);
+
+        // Cargamos datos que aparecerán en el select
+        $datosPasajero = [];
+        foreach ($pasajes["registros2"] as $pasaje) {
+            $datosPasajero[] = new Pasaje($pasaje['nombre'], $pasaje['pasajerocod'], $pasaje['nombre'], $pasaje['nombre'], $pasaje['nombre'], $pasaje['nombre']);
+        }
+
+        $datosIdent = [];
+        
+        foreach ($pasajes["registros3"] as $pasaje) {
+            $datosIdent[] = new Pasaje($pasaje['identificador'], $pasaje['aeropuertoorigen'], $pasaje['aeropuertodestino'], $pasaje['identificador'], $pasaje['identificador'], $pasaje['identificador']);
+        }
+       
+        // Pasar datos a la vista
+        $this->view->mostrarActualizarPasaje($idpasaje, $pasajerocod, $identificador, $numasiento, $clase, $pvp, $datosPasajero, $datosIdent);
+    }
+
+    public function modificarPasaje() {
+        
+        $id = $_GET['id'];
+        $codpasajero = $_POST['pasajero'];
+        $identificador = $_POST['identificador'];
+        $numasiento = $_POST['numAsiento'];
+        $clase = $_POST['clase'];
+        $pvp = $_POST['pvp'];
+
+        // Llamada a la función request_put para actualizar un pasaje
+        $result = $this->service->request_put($id, $pasajerocod, $identificador, $numasiento, $clase, $pvp);
+
+        if ($result === true) {
+            header('Location: index.php?controller=Pasaje&action=mostrar&id=' . $_GET['id']. '&check=true');
+        } elseif (is_string($result)) {
+            // Si el resultado es una cadena, significa que hubo un error personalizado
+            header('Location: "./index.php?controller=Pasaje&action=mostrar&id=' . $_GET['id']. '&check=false&error=' . urlencode($result));
         }
     }
 }
