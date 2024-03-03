@@ -79,8 +79,8 @@ class PasajeService {
 
     //PUT  para modificar
     function request_put($id, $codpasajero, $identificador, $numasiento, $clase, $pvp) {
-        $envio = json_encode(array("codpasajero" => $codpasajero, "identificador" => $identificador, "numasiento" => $numasiento, "clase" => $clase, "pvp" => $pvp));
-        $urlmiservicio = "http://localhost/_servWeb/restfulvuelos/PasajeService.php?id=" . $id;
+        $envio = json_encode(array("idpasaje" => $id,"pasajerocod" => $codpasajero, "identificador" => $identificador, "numasiento" => $numasiento, "clase" => $clase, "pvp" => $pvp));
+        $urlmiservicio = "http://localhost/_servWeb/restfulvuelos/PasajeService.php";
         $conexion = curl_init();
         curl_setopt($conexion, CURLOPT_URL, $urlmiservicio);
         //Cabecera, tipo de datos y longitud de envío
@@ -97,10 +97,8 @@ class PasajeService {
         curl_close($conexion);
 
         if ($res) {
-            // Verificar si la respuesta contiene un mensaje de error
-            $response = json_decode($res, true);
-            if (isset($response['mensaje']) && strpos($response['mensaje'], 'ERROR') !== false) {
-                return $response['mensaje'];
+            if (isset($res['mensaje']) ) {
+                return $res['mensaje'];
             } else {
                 return true;
             }
@@ -122,9 +120,10 @@ class PasajeService {
         curl_setopt($conexion, CURLOPT_RETURNTRANSFER, true);
 
         $res = curl_exec($conexion);
-        if ($res) {
-            echo "<br>Salida request_delete<br>";
-            print_r($res);
+        if ($res == true) {
+            return true;
+        } else {
+            return false;
         }
         curl_close($conexion);
     }

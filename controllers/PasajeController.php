@@ -59,9 +59,11 @@ class PasajeController {
     public function borrarPasaje() {
         $id = $_GET['id'];
 
-        $this->service->request_delete($id);
-
-        header('Location: ./index.php?controller=Pasaje&action=mostrar');
+        $borrar = $this->service->request_delete($id);
+        
+        if($borrar == true) {
+                    header('Location: ./index.php?controller=Pasaje&action=mostrar&delete=success');
+        }
     }
  public function mostrarInsertar() {
 
@@ -141,13 +143,24 @@ class PasajeController {
         $pvp = $_POST['pvp'];
 
         // Llamada a la función request_put para actualizar un pasaje
-        $result = $this->service->request_put($id, $pasajerocod, $identificador, $numasiento, $clase, $pvp);
+        $result = $this->service->request_put($id, $codpasajero, $identificador, $numasiento, $clase, $pvp);
 
+        
+        if ($result == 1 ) {
+                header('Location: index.php?controller=Pasaje&action=mostrar&actualizar=true');
+                exit();
+            } else {
+                header('Location: index.php?controller=Pasaje&action=mostrar&mensajeError='.$actualizacion);
+                exit();
+            }
+
+        
+        
         if ($result === true) {
-            header('Location: index.php?controller=Pasaje&action=mostrar&id=' . $_GET['id']. '&check=true');
+            header('Location: index.php?controller=Pasaje&action=mostrar&id=' . $_GET['id']. '&comprobar=true');
         } elseif (is_string($result)) {
             // Si el resultado es una cadena, significa que hubo un error personalizado
-            header('Location: "./index.php?controller=Pasaje&action=mostrar&id=' . $_GET['id']. '&check=false&error=' . urlencode($result));
+            header('Location: "./index.php?controller=Pasaje&action=mostrar&id=' . $_GET['id']. '&comprobar=false&error=' . urlencode($result));
         }
     }
 }

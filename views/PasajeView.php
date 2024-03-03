@@ -21,8 +21,8 @@ class PasajeView {
             <div class="container text-center rounded p-5 m-4"> 
             <a href="./index.php?controller=Pasaje&action=mostrarInsertar" class="btn btn-primary">Añadir Nuevo Pasaje</a>
             <?php
-            if (isset($_GET["check"])) {
-                if ($_GET["check"] == 'true') {
+            if (isset($_GET["comprobar"])) {
+                if ($_GET["comprobar"] == 'true') {
                     ?>
                     <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
                         <strong>Pasaje creado correctomente</strong>
@@ -42,8 +42,22 @@ class PasajeView {
                     <?php
                 }
             }
+            if (isset($_GET["actualizar"])) {
+                if ($_GET["actualizar"] == "true") {
+                    ?>
+                    <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+                        <strong>El Pasaje se ha modificado correctamente </strong>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    <?php
+                } else {
+                    $error_message;
+                    if (isset($_GET["error"])) {
+                        $error_message = urldecode($_GET["error"]);
+                    }
+                }
             if (isset($_GET["delete"])) {
-                if ($_GET["delete"] == "true") {
+                if ($_GET["delete"] == "success") {
                     ?>
                     <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
                         <strong>Pasaje borrado correctamente</strong>
@@ -58,20 +72,8 @@ class PasajeView {
                     </div>
                     <?php
                 }
-            }
-            if (isset($_GET["mody"])) {
-                if ($_GET["mody"] == 'true') {
-                    ?>
-                    <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
-                        <strong>Pasaje modificado </strong>
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                    <?php
-                } else {
-                    $error_message;
-                    if (isset($_GET["error"])) {
-                        $error_message = urldecode($_GET["error"]);
-                    }
+            
+            
                     ?>
                     <div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
                         <strong><?php echo $error_message; ?></strong>
@@ -81,7 +83,6 @@ class PasajeView {
                 }
             }
             ?>
-            <!-- TABLA INICIO -->
             <table class="table mt-4 text-center verticalalign-middle">
                 <thead>
                     <tr class="text-center">
@@ -109,11 +110,7 @@ class PasajeView {
                             <td>
 
                                 <a href="./index.php?controller=Pasaje&action=mostrarDetallesPasaje&id=<?php echo $pasaje->getIdpasaje(); ?>" class="btn btn-danger">Ver detalles</a>
-                                <!--  
-                               <form class="row g-3" action="./index.php?controller=Pasaje&action=mostrarDetallesPasaje&id=<?php echo $pasaje->getIdpasaje(); ?>" method="GET">
-                                   <button class="btn btn-success text-light" type="submit">Ver detalles</button>
-                               </form>
-                                -->
+                              
 
                             </td>
                         </tr>
@@ -122,7 +119,6 @@ class PasajeView {
                     ?>
                 </tbody>
             </table>
-            <!-- FIN TABLA -->
 
         </div>
         <?php
@@ -276,7 +272,6 @@ public function mostrarActualizarPasaje($idPasaje, $codigoPasajero, $identificad
 </div>
 
 <?php
-    // Fin del contenedor
 }
 
 public function mostrarNuevoPasaje($listaPasajeros, $listaIdentificadores) {
@@ -332,7 +327,6 @@ public function mostrarNuevoPasaje($listaPasajeros, $listaIdentificadores) {
         </div>
     </div>
     <?php
-    // Fin del contenedor
 }
 
 
